@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @project.name %>
+</p>
+
+<p>
+  <strong>Trabajadores</strong>
+  
+</p>
+
+<% @project.workers.each do |worker| %>
+  <%= worker.name %>
+  <%= link_to  "Remover", remove_worker_path(@project, worker), method: :delete %>
+  <br>
+<% end %>
+
+<%= form_with(model: @project.workers.build, url: assign_worker_path(@project), local: true) do |form| %>
+  <%= form.select(:worker_id, options_for_select(@available_workers)) %>
+  <%= form.submit%>
+<% end %>
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
